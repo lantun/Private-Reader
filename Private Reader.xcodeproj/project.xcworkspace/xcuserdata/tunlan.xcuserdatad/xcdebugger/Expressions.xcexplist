@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "BookPageViewController.readFile() -&gt; ():BookPageViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bookContent">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BookListCollectionViewController.reloadDir() -&gt; ():BookListCollectionViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "PageViewController.viewDidLoad() -&gt; ():PageViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "bookItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

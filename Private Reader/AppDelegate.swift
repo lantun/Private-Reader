@@ -16,6 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let winRect = UIScreen.mainScreen().bounds
+        window = UIWindow(frame: winRect)
+        window?.backgroundColor = UIColor.whiteColor()
+        let flowLayout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSizeMake(50, 80) //设置cell的尺寸
+        flowLayout.sectionInset = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0) //设定全局的区内边距
+        flowLayout.minimumLineSpacing = 10;//设定全局的行间距
+        flowLayout.minimumInteritemSpacing = 10;//设定全局的Cell间距
+        flowLayout.scrollDirection = .Vertical;//设定滚动方向
+
+        let BookListVC = UINavigationController(rootViewController: BookListCollectionViewController(collectionViewLayout: flowLayout))
+        BookListVC.navigationBar.tintColor = UIColor.blackColor()
+        BookListVC.toolbar.tintColor = UIColor.blackColor()
+        BookListVC.navigationBar.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        window?.rootViewController = BookListVC
+        window?.makeKeyAndVisible()
         return true
     }
 
@@ -40,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

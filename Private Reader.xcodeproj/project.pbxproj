@@ -7,21 +7,80 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0270521D116A820048F6EE /* GCDWebUploader.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3ABE859C1D1155BD00ABE438 /* GCDWebUploader.bundle */; };
+		3A0270551D116F440048F6EE /* BookListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0270541D116F440048F6EE /* BookListCollectionViewController.swift */; };
+		3A0270571D116F580048F6EE /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0270561D116F580048F6EE /* BookCollectionViewCell.swift */; };
+		3A4B9E381D104FB600E7D571 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B9E371D104FB600E7D571 /* String.swift */; };
+		3A4B9E3A1D1061FA00E7D571 /* PageChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B9E391D1061FA00E7D571 /* PageChildViewController.swift */; };
 		3A4CFC931D0D64FD00C5D4FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CFC921D0D64FD00C5D4FB /* AppDelegate.swift */; };
-		3A4CFC951D0D64FD00C5D4FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CFC941D0D64FD00C5D4FB /* ViewController.swift */; };
-		3A4CFC981D0D64FD00C5D4FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CFC961D0D64FD00C5D4FB /* Main.storyboard */; };
 		3A4CFC9A1D0D64FE00C5D4FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CFC991D0D64FE00C5D4FB /* Assets.xcassets */; };
-		3A4CFC9D1D0D64FE00C5D4FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CFC9B1D0D64FE00C5D4FB /* LaunchScreen.storyboard */; };
+		3A5406C51D0EE6A800654551 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5406C41D0EE6A800654551 /* libz.tbd */; };
+		3A54072C1D0EEA9500654551 /* GCDWebUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A54072A1D0EEA9500654551 /* GCDWebUploader.m */; };
+		3A549F291D0FE44A00D9A0F5 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A549F281D0FE44A00D9A0F5 /* UIImage.swift */; };
+		3AA701651D0F966E0030FA59 /* BookPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA701641D0F966E0030FA59 /* BookPageViewController.swift */; };
+		3AA701671D0FA9890030FA59 /* Def.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA701661D0FA9890030FA59 /* Def.swift */; };
+		3AE64DCC1D0F06870017F714 /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DAF1D0F06870017F714 /* GCDWebServer.m */; };
+		3AE64DCD1D0F06870017F714 /* GCDWebServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DB11D0F06870017F714 /* GCDWebServerConnection.m */; };
+		3AE64DCE1D0F06870017F714 /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DB31D0F06870017F714 /* GCDWebServerFunctions.m */; };
+		3AE64DCF1D0F06870017F714 /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DB71D0F06870017F714 /* GCDWebServerRequest.m */; };
+		3AE64DD01D0F06870017F714 /* GCDWebServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DB91D0F06870017F714 /* GCDWebServerResponse.m */; };
+		3AE64DD11D0F06870017F714 /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DBC1D0F06870017F714 /* GCDWebServerDataRequest.m */; };
+		3AE64DD21D0F06870017F714 /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DBE1D0F06870017F714 /* GCDWebServerFileRequest.m */; };
+		3AE64DD31D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DC01D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m */; };
+		3AE64DD41D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DC21D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.m */; };
+		3AE64DD51D0F06870017F714 /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DC51D0F06870017F714 /* GCDWebServerDataResponse.m */; };
+		3AE64DD61D0F06870017F714 /* GCDWebServerErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DC71D0F06870017F714 /* GCDWebServerErrorResponse.m */; };
+		3AE64DD71D0F06870017F714 /* GCDWebServerFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DC91D0F06870017F714 /* GCDWebServerFileResponse.m */; };
+		3AE64DD81D0F06870017F714 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DCB1D0F06870017F714 /* GCDWebServerStreamedResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A02704F1D116A4F0048F6EE /* GCDWebServers */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = GCDWebServers; path = "Private Reader/GCDWebUploader/GCDWebServers.framework/GCDWebServers"; sourceTree = "<group>"; };
+		3A0270541D116F440048F6EE /* BookListCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListCollectionViewController.swift; sourceTree = "<group>"; };
+		3A0270561D116F580048F6EE /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A4B9E371D104FB600E7D571 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		3A4B9E391D1061FA00E7D571 /* PageChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageChildViewController.swift; sourceTree = "<group>"; };
 		3A4CFC8F1D0D64FD00C5D4FB /* Private Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Private Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4CFC921D0D64FD00C5D4FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A4CFC941D0D64FD00C5D4FB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3A4CFC971D0D64FD00C5D4FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A4CFC991D0D64FE00C5D4FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3A4CFC9C1D0D64FE00C5D4FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A4CFC9E1D0D64FE00C5D4FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A5406C41D0EE6A800654551 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3A5407291D0EEA9500654551 /* GCDWebUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebUploader.h; sourceTree = "<group>"; };
+		3A54072A1D0EEA9500654551 /* GCDWebUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebUploader.m; sourceTree = "<group>"; };
+		3A549F281D0FE44A00D9A0F5 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		3AA701641D0F966E0030FA59 /* BookPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPageViewController.swift; sourceTree = "<group>"; };
+		3AA701661D0FA9890030FA59 /* Def.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Def.swift; path = "Private Reader/Def.swift"; sourceTree = SOURCE_ROOT; };
+		3ABE859C1D1155BD00ABE438 /* GCDWebUploader.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GCDWebUploader.bundle; path = GCDWebServers.framework/GCDWebUploader.bundle; sourceTree = "<group>"; };
+		3AE64DA51D0EFE150017F714 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GCDWebServers.framework; sourceTree = "<group>"; };
+		3AE64DAE1D0F06870017F714 /* GCDWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServer.h; sourceTree = "<group>"; };
+		3AE64DAF1D0F06870017F714 /* GCDWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServer.m; sourceTree = "<group>"; };
+		3AE64DB01D0F06870017F714 /* GCDWebServerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerConnection.h; sourceTree = "<group>"; };
+		3AE64DB11D0F06870017F714 /* GCDWebServerConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerConnection.m; sourceTree = "<group>"; };
+		3AE64DB21D0F06870017F714 /* GCDWebServerFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFunctions.h; sourceTree = "<group>"; };
+		3AE64DB31D0F06870017F714 /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFunctions.m; sourceTree = "<group>"; };
+		3AE64DB41D0F06870017F714 /* GCDWebServerHTTPStatusCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerHTTPStatusCodes.h; sourceTree = "<group>"; };
+		3AE64DB51D0F06870017F714 /* GCDWebServerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerPrivate.h; sourceTree = "<group>"; };
+		3AE64DB61D0F06870017F714 /* GCDWebServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerRequest.h; sourceTree = "<group>"; };
+		3AE64DB71D0F06870017F714 /* GCDWebServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerRequest.m; sourceTree = "<group>"; };
+		3AE64DB81D0F06870017F714 /* GCDWebServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerResponse.h; sourceTree = "<group>"; };
+		3AE64DB91D0F06870017F714 /* GCDWebServerResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerResponse.m; sourceTree = "<group>"; };
+		3AE64DBB1D0F06870017F714 /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataRequest.h; sourceTree = "<group>"; };
+		3AE64DBC1D0F06870017F714 /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataRequest.m; sourceTree = "<group>"; };
+		3AE64DBD1D0F06870017F714 /* GCDWebServerFileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileRequest.h; sourceTree = "<group>"; };
+		3AE64DBE1D0F06870017F714 /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
+		3AE64DBF1D0F06870017F714 /* GCDWebServerMultiPartFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerMultiPartFormRequest.h; sourceTree = "<group>"; };
+		3AE64DC01D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerMultiPartFormRequest.m; sourceTree = "<group>"; };
+		3AE64DC11D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
+		3AE64DC21D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerURLEncodedFormRequest.m; sourceTree = "<group>"; };
+		3AE64DC41D0F06870017F714 /* GCDWebServerDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataResponse.h; sourceTree = "<group>"; };
+		3AE64DC51D0F06870017F714 /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataResponse.m; sourceTree = "<group>"; };
+		3AE64DC61D0F06870017F714 /* GCDWebServerErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerErrorResponse.h; sourceTree = "<group>"; };
+		3AE64DC71D0F06870017F714 /* GCDWebServerErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerErrorResponse.m; sourceTree = "<group>"; };
+		3AE64DC81D0F06870017F714 /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileResponse.h; sourceTree = "<group>"; };
+		3AE64DC91D0F06870017F714 /* GCDWebServerFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileResponse.m; sourceTree = "<group>"; };
+		3AE64DCA1D0F06870017F714 /* GCDWebServerStreamedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerStreamedResponse.h; sourceTree = "<group>"; };
+		3AE64DCB1D0F06870017F714 /* GCDWebServerStreamedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerStreamedResponse.m; sourceTree = "<group>"; };
+		3AE64DD91D0F06C80017F714 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,15 +88,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A5406C51D0EE6A800654551 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A0270531D116F440048F6EE /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3A0270561D116F580048F6EE /* BookCollectionViewCell.swift */,
+				3A0270541D116F440048F6EE /* BookListCollectionViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		3A4CFC861D0D64FD00C5D4FB = {
 			isa = PBXGroup;
 			children = (
+				3A02704F1D116A4F0048F6EE /* GCDWebServers */,
+				3A5406C41D0EE6A800654551 /* libz.tbd */,
 				3A4CFC911D0D64FD00C5D4FB /* Private Reader */,
 				3A4CFC901D0D64FD00C5D4FB /* Products */,
 			);
@@ -54,14 +125,106 @@
 		3A4CFC911D0D64FD00C5D4FB /* Private Reader */ = {
 			isa = PBXGroup;
 			children = (
+				3A549F251D0FE3AC00D9A0F5 /* UIToolKit */,
+				3AE64DD91D0F06C80017F714 /* Bridging-Header.h */,
+				3AE64DAC1D0F06870017F714 /* GCDWebServer */,
+				3A5407271D0EEA9500654551 /* GCDWebUploader */,
+				3A4CFCA61D0D70F200C5D4FB /* VC */,
 				3A4CFC921D0D64FD00C5D4FB /* AppDelegate.swift */,
-				3A4CFC941D0D64FD00C5D4FB /* ViewController.swift */,
-				3A4CFC961D0D64FD00C5D4FB /* Main.storyboard */,
 				3A4CFC991D0D64FE00C5D4FB /* Assets.xcassets */,
-				3A4CFC9B1D0D64FE00C5D4FB /* LaunchScreen.storyboard */,
 				3A4CFC9E1D0D64FE00C5D4FB /* Info.plist */,
 			);
 			path = "Private Reader";
+			sourceTree = "<group>";
+		};
+		3A4CFCA61D0D70F200C5D4FB /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				3A0270531D116F440048F6EE /* Home */,
+				3AA701641D0F966E0030FA59 /* BookPageViewController.swift */,
+				3AA701661D0FA9890030FA59 /* Def.swift */,
+				3A4B9E391D1061FA00E7D571 /* PageChildViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		3A5407271D0EEA9500654551 /* GCDWebUploader */ = {
+			isa = PBXGroup;
+			children = (
+				3ABE859C1D1155BD00ABE438 /* GCDWebUploader.bundle */,
+				3AE64DA51D0EFE150017F714 /* GCDWebServers.framework */,
+				3A5407291D0EEA9500654551 /* GCDWebUploader.h */,
+				3A54072A1D0EEA9500654551 /* GCDWebUploader.m */,
+			);
+			path = GCDWebUploader;
+			sourceTree = "<group>";
+		};
+		3A549F251D0FE3AC00D9A0F5 /* UIToolKit */ = {
+			isa = PBXGroup;
+			children = (
+				3A549F281D0FE44A00D9A0F5 /* UIImage.swift */,
+				3A4B9E371D104FB600E7D571 /* String.swift */,
+			);
+			path = UIToolKit;
+			sourceTree = "<group>";
+		};
+		3AE64DAC1D0F06870017F714 /* GCDWebServer */ = {
+			isa = PBXGroup;
+			children = (
+				3AE64DAD1D0F06870017F714 /* Core */,
+				3AE64DBA1D0F06870017F714 /* Requests */,
+				3AE64DC31D0F06870017F714 /* Responses */,
+			);
+			path = GCDWebServer;
+			sourceTree = "<group>";
+		};
+		3AE64DAD1D0F06870017F714 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3AE64DAE1D0F06870017F714 /* GCDWebServer.h */,
+				3AE64DAF1D0F06870017F714 /* GCDWebServer.m */,
+				3AE64DB01D0F06870017F714 /* GCDWebServerConnection.h */,
+				3AE64DB11D0F06870017F714 /* GCDWebServerConnection.m */,
+				3AE64DB21D0F06870017F714 /* GCDWebServerFunctions.h */,
+				3AE64DB31D0F06870017F714 /* GCDWebServerFunctions.m */,
+				3AE64DB41D0F06870017F714 /* GCDWebServerHTTPStatusCodes.h */,
+				3AE64DB51D0F06870017F714 /* GCDWebServerPrivate.h */,
+				3AE64DB61D0F06870017F714 /* GCDWebServerRequest.h */,
+				3AE64DB71D0F06870017F714 /* GCDWebServerRequest.m */,
+				3AE64DB81D0F06870017F714 /* GCDWebServerResponse.h */,
+				3AE64DB91D0F06870017F714 /* GCDWebServerResponse.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		3AE64DBA1D0F06870017F714 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				3AE64DBB1D0F06870017F714 /* GCDWebServerDataRequest.h */,
+				3AE64DBC1D0F06870017F714 /* GCDWebServerDataRequest.m */,
+				3AE64DBD1D0F06870017F714 /* GCDWebServerFileRequest.h */,
+				3AE64DBE1D0F06870017F714 /* GCDWebServerFileRequest.m */,
+				3AE64DBF1D0F06870017F714 /* GCDWebServerMultiPartFormRequest.h */,
+				3AE64DC01D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m */,
+				3AE64DC11D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.h */,
+				3AE64DC21D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.m */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		3AE64DC31D0F06870017F714 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				3AE64DC41D0F06870017F714 /* GCDWebServerDataResponse.h */,
+				3AE64DC51D0F06870017F714 /* GCDWebServerDataResponse.m */,
+				3AE64DC61D0F06870017F714 /* GCDWebServerErrorResponse.h */,
+				3AE64DC71D0F06870017F714 /* GCDWebServerErrorResponse.m */,
+				3AE64DC81D0F06870017F714 /* GCDWebServerFileResponse.h */,
+				3AE64DC91D0F06870017F714 /* GCDWebServerFileResponse.m */,
+				3AE64DCA1D0F06870017F714 /* GCDWebServerStreamedResponse.h */,
+				3AE64DCB1D0F06870017F714 /* GCDWebServerStreamedResponse.m */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +259,12 @@
 				TargetAttributes = {
 					3A4CFC8E1D0D64FD00C5D4FB = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 99KJ62E43A;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -122,9 +291,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A4CFC9D1D0D64FE00C5D4FB /* LaunchScreen.storyboard in Resources */,
+				3A0270521D116A820048F6EE /* GCDWebUploader.bundle in Resources */,
 				3A4CFC9A1D0D64FE00C5D4FB /* Assets.xcassets in Resources */,
-				3A4CFC981D0D64FD00C5D4FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,31 +303,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A4CFC951D0D64FD00C5D4FB /* ViewController.swift in Sources */,
+				3AA701651D0F966E0030FA59 /* BookPageViewController.swift in Sources */,
+				3A549F291D0FE44A00D9A0F5 /* UIImage.swift in Sources */,
+				3AE64DD81D0F06870017F714 /* GCDWebServerStreamedResponse.m in Sources */,
+				3A0270571D116F580048F6EE /* BookCollectionViewCell.swift in Sources */,
+				3AE64DD31D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m in Sources */,
+				3AE64DD51D0F06870017F714 /* GCDWebServerDataResponse.m in Sources */,
+				3AE64DD61D0F06870017F714 /* GCDWebServerErrorResponse.m in Sources */,
+				3AE64DCC1D0F06870017F714 /* GCDWebServer.m in Sources */,
+				3AE64DD71D0F06870017F714 /* GCDWebServerFileResponse.m in Sources */,
 				3A4CFC931D0D64FD00C5D4FB /* AppDelegate.swift in Sources */,
+				3AE64DCE1D0F06870017F714 /* GCDWebServerFunctions.m in Sources */,
+				3AE64DD01D0F06870017F714 /* GCDWebServerResponse.m in Sources */,
+				3AE64DCD1D0F06870017F714 /* GCDWebServerConnection.m in Sources */,
+				3A4B9E381D104FB600E7D571 /* String.swift in Sources */,
+				3A54072C1D0EEA9500654551 /* GCDWebUploader.m in Sources */,
+				3AE64DD41D0F06870017F714 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
+				3AE64DD21D0F06870017F714 /* GCDWebServerFileRequest.m in Sources */,
+				3A4B9E3A1D1061FA00E7D571 /* PageChildViewController.swift in Sources */,
+				3A0270551D116F440048F6EE /* BookListCollectionViewController.swift in Sources */,
+				3AA701671D0FA9890030FA59 /* Def.swift in Sources */,
+				3AE64DCF1D0F06870017F714 /* GCDWebServerRequest.m in Sources */,
+				3AE64DD11D0F06870017F714 /* GCDWebServerDataRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3A4CFC961D0D64FD00C5D4FB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A4CFC971D0D64FD00C5D4FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3A4CFC9B1D0D64FE00C5D4FB /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A4CFC9C1D0D64FE00C5D4FB /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3A4CFC9F1D0D64FE00C5D4FB /* Debug */ = {
@@ -249,10 +418,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+				);
 				INFOPLIST_FILE = "Private Reader/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader/GCDWebServers.framework,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LT.Private-Reader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/tunlan/Desktop/Private Reader/Private Reader/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -260,10 +457,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader,
+				);
 				INFOPLIST_FILE = "Private Reader/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Private",
+					Reader/GCDWebUploader/GCDWebServers.framework,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LT.Private-Reader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/tunlan/Desktop/Private Reader/Private Reader/Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -286,6 +511,7 @@
 				3A4CFCA31D0D64FE00C5D4FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
