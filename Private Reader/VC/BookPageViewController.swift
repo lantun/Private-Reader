@@ -19,17 +19,12 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
     // 分页存储内容
     var textPosStorage: [[String: AnyObject]]? = [[String: AnyObject]]()
     
-    
-    // 索引偏移
-    var offset: Int = 0
     // 页面控制器
     var pageController: UIPageViewController?
     
     let slider = UISlider()
     
     var fontSize: CGFloat = 12.0
-    
-    var forwardTransition: Bool = false
     
     var currentIndex: Int = 0
     // 首次加载时
@@ -94,15 +89,34 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         // Dispose of any resources that can be recreated.
     }
     
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:50
+     读文件进程
+     */
+    func readProgress() {
+        readFile(&bookItem!, textPosStorage: &textPosStorage!)
+        nsprogress = NSProgress.init(totalUnitCount: Int64((textPosStorage?.count)!))
+        nsprogress?.addObserver(self, forKeyPath: "completedUnitCount", options: NSKeyValueObservingOptions.New, context: nil)
+        dispatch_async(queue, {
+            self.initPageViewController()
+        })
+        dispatch_async(queue, {
+            self.initBar()
+        })
+        
+        
+    }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-//        log(change)
         weak var weakSelf: BookPageViewController! = self
         if keyPath == "completedUnitCount" {
             log("completedUnitCount:\(change)")
             if nsprogress?.fractionCompleted == 1.0 {
+                // 假如已满，则初始化界面
                 dispatch_async(dispatch_get_main_queue(), {
-                    weakSelf.pageController!.setViewControllers([weakSelf.childVCs[0]], direction: .Forward, animated: true, completion: nil)
+                    weakSelf.pageController!.setViewControllers([weakSelf.childVCs[weakSelf.currentIndex]], direction: .Forward, animated: true, completion: nil)
                     weakSelf.pageController?.delegate = self
                     weakSelf.pageController?.dataSource = self
                     weakSelf.addChildViewController(weakSelf.pageController!)
@@ -110,6 +124,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
                     weakSelf.pageController?.didMoveToParentViewController(weakSelf)
                 })
             }else{
+                // 假如未满，则更新进度条
                 dispatch_async(dispatch_get_main_queue(), {
                     weakSelf.progressView.setProgress((change!["new"] as! Float / Float((weakSelf.nsprogress?.totalUnitCount)!)), animated: true)
                 })
@@ -118,7 +133,14 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         }
     }
     
-    // 初始化页面控制器
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:32
+     初始化页面控制器
+     
+     - returns: nil
+     */
     func initPageViewController() {
         weak var weakSelf: BookPageViewController! = self
         pageController = UIPageViewController(transitionStyle: .PageCurl, navigationOrientation: .Horizontal, options: nil)
@@ -146,7 +168,14 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         
     }
     
-    // 初始化工具栏，目前未添加功能
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:43
+     初始化工具栏
+     
+     - returns: nil
+     */
     func initBar() {
         weak var weakSelf:BookPageViewController! = self
         dispatch_async(dispatch_get_main_queue()) { 
@@ -159,7 +188,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             
             
             weakSelf.slider.continuous = true
-            weakSelf.slider.addTarget(self, action: #selector(BookPageViewController.readSliderChange(_: )), forControlEvents: .TouchUpInside)
+            weakSelf.slider.addTarget(self, action: #selector(BookPageViewController.sliderTouchUpInside(_: )), forControlEvents: .TouchUpInside)
             weakSelf.slider.addTarget(self, action: #selector(BookPageViewController.sliderFalse(_: )), forControlEvents: .TouchUpOutside)
             let toolBarItem: UIBarButtonItem = UIBarButtonItem.init(customView: weakSelf.slider)
             toolBarItem.imageInsets = UIEdgeInsetsZero
@@ -172,23 +201,17 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         
     }
     
-    
-    
-    func readProgress() {
-        readFile(&bookItem!, textPosStorage: &textPosStorage!)
-        nsprogress = NSProgress.init(totalUnitCount: Int64((textPosStorage?.count)!))
-        nsprogress?.addObserver(self, forKeyPath: "completedUnitCount", options: NSKeyValueObservingOptions.New, context: nil)
-        dispatch_async(queue, {
-            self.initPageViewController()
-        })
-        dispatch_async(queue, {
-            self.initBar()
-        })
-        
-        
-    }
-    
-    // 读取书本内容
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:53
+     读取书本内容
+     
+     - parameter bookItem:       书本信息字典
+     - parameter textPosStorage: 书本分页信息字典
+     
+     - returns: 读取是否成功
+     */
     func readFile(inout bookItem: [String: AnyObject], inout textPosStorage: [[String: AnyObject]])-> Bool {
         
         let fileSize: Int = bookItem["Size"] as! Int
@@ -224,27 +247,36 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             let content = attrString.attributedSubstringFromRange(NSRange.init(location: textPos, length: range.length))
             let item = ["begin": textPos,"size": range.length,"text": content.string]
             textPosStorage.append(item as! [String : AnyObject])
-            //            let item = ["begin": textPos,"size": range.length]
-            //            textPosStorage.append(item)
-            
+
             textPos = textPos + range.length
-            //            dispatch_sync(queue, {
-            
-            
-            //            })
-            self.progressView.setNeedsDisplay()
         }
         bookItem["content"] = attrString
         
         return true
     }
     
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:56
+     进度条touchoutside响应，还原至当前当前阅读
+     
+     - parameter sender: 进度条
+     */
     func sliderFalse(sender: UISlider) {
         log("sliderFalse")
         slider.value = Float(currentIndex * 100 / (textPosStorage?.count)! )
     }
     
-    func readSliderChange(sender: UISlider) {
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-22 23:06:35
+     进度条touchoutside响应，当前阅读进度跳转到进度条百分比进度
+     
+     - parameter sender: 进度条
+     */
+    func sliderTouchUpInside(sender: UISlider) {
         log("\(sender.value)")
         weak var weakSelf = self
         
@@ -275,22 +307,6 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
     }
     */
     
-    // 按下标生成子页面
-    /*!
-     
-     - author: Tun Lan
-     - date: 16-06-16 01: 06: 03
-     按下标生成子页面
-     
-     - parameter before: 翻页方向是否向后，false即向前
-     
-     - returns: 生成的子页面
-     */
-    func viewControllerAtIndex(forward forward: Bool) -> UIViewController? {
-        let childVC = PageChildViewController()
-        forwardTransition = forward
-        return childVC
-    }
     
     // MARK: - UIPageViewControllerDataSource
     
@@ -308,8 +324,8 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             return nil
         }
         log(vc.pageNumber)
-        let childVC = childVCs[vc.pageNumber - 1]
-//        self.view .addSubview(childVC.view)
+        currentIndex = vc.pageNumber - 1
+        let childVC = childVCs[currentIndex]
         return childVC
     }
     
@@ -319,59 +335,23 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             return nil
         }
         log(vc.pageNumber)
-        let childVC = childVCs[vc.pageNumber + 1]
+        currentIndex = vc.pageNumber + 1
+        let childVC = childVCs[currentIndex]
         return childVC
     }
     
     // MARK: - UIPageViewControllerDelegate
     
-//    internal func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation{
-//        UIPageViewControllerSpineLocationMid
-//    }
-    
     internal func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool){
-        log("didFinishAnimating")
+        if finished {
+            saveReadProgress()
+        }
     }
     
     internal func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]){
         // 发生翻译时，隐藏bar
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationController?.setToolbarHidden(true, animated: true)
-        /*
-        weak var weakSelf = self
-        
-        log("\(pendingViewControllers.count)")
-        
-        let childVC: PageChildViewController = pendingViewControllers.last as! PageChildViewController
-        if currentIndex  == 0  {
-            if firstLoad && forwardTransition {
-                childVC.readProgress = Float(weakSelf!.currentIndex * 100 / (weakSelf!.textStorage?.count)!)
-                // 设内容
-                childVC.contentView.text = weakSelf!.textStorage?[weakSelf!.currentIndex]
-                // 设标题
-                childVC.title = weakSelf!.bookItem!["Name"] as? String
-                firstLoad = false
-            }
-        }
-        dispatch_async(dispatch_get_main_queue()) {
-            if weakSelf!.forwardTransition {
-                if weakSelf!.currentIndex != (weakSelf!.textStorage?.count)! - 1 {
-                    weakSelf!.currentIndex = weakSelf!.currentIndex + 1
-                }
-                
-            }else{
-                if weakSelf!.currentIndex != 0 {
-                    weakSelf!.currentIndex = weakSelf!.currentIndex - 1
-                }
-            }
-            if weakSelf!.currentIndex >= weakSelf!.textStorage?.count {
-                weakSelf!.currentIndex = (weakSelf!.textStorage?.count)! - 1
-            }
-            if weakSelf!.currentIndex < 0 {
-                weakSelf!.currentIndex = 0
-            }
-            weakSelf!.moveToIndex(weakSelf!.currentIndex)
-        }*/
 
     }
     
@@ -383,25 +363,21 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
      
      - parameter index: 索引下标
      */
-    /*
+    
     func moveToIndex(index: Int){
-        guard case self.currentIndex = index where self.currentIndex >= 0 && self.currentIndex < self.textStorage?.count else{
+        guard let _:Int = index where index >= 0 && index < self.textPosStorage?.count else{
             return
         }
-        
-        let childVC: PageChildViewController = self.pageController?.viewControllers!.last as! PageChildViewController
-        
-        childVC.readProgress = Float(self.currentIndex) * 100 / Float((self.textStorage?.count)!)
-        // 设内容
-        childVC.contentView.text = self.textStorage?[self.currentIndex - offset]
-        // 设标题
-        childVC.title = self.bookItem!["Name"] as? String
-        
+        var direction = UIPageViewControllerNavigationDirection.Forward
+        if index <= self.currentIndex {
+            direction = UIPageViewControllerNavigationDirection.Reverse
+        }
+        self.currentIndex = index
+        self.pageController?.setViewControllers([childVCs[self.currentIndex]], direction: direction, animated: true, completion: nil)
         // save read progress
         saveReadProgress()
-        self.slider.value = childVC.readProgress
     }
-    */
+ 
     /*!
      
      - author: Tun Lan
@@ -411,43 +387,8 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
      - parameter progress: 百分比
      */
     func moveToProgress(progress: Int) {
-//        weak var weakSelf = self
-        
-        // 先初始化前后200页
-        
-//        weakSelf!.currentIndex = progress * (weakSelf!.textPosStorage?.count)! / 100
-//        offset = weakSelf!.currentIndex - 200
-//        if offset <= 0 {
-//            offset = 0
-//        }
-//        let attrString = weakSelf!.bookItem!["content"] as! NSAttributedString
-//        for i in 0..<400 {
-//            if offset + i >= (weakSelf!.textPosStorage?.count)! {
-//                break
-//            }
-//            let textPos: Int = weakSelf!.textPosStorage![offset + i]["begin"] as! Int
-//            let length: Int = weakSelf!.textPosStorage![offset + i]["size"] as! Int
-//            let text = attrString.attributedSubstringFromRange(NSRange.init(location: textPos, length: length)).string
-//            weakSelf!.textStorage![i] = text
-//        }
-//
-//        
-//        if weakSelf!.currentIndex >= weakSelf!.textStorage?.count {
-//            weakSelf!.currentIndex = (weakSelf!.textStorage?.count)! - 1
-//        }
-//        if weakSelf!.currentIndex < 0 {
-//            weakSelf!.currentIndex = 0
-//        }
-//        
-//        let childVC: PageChildViewController = weakSelf!.pageController?.viewControllers!.last as! PageChildViewController
-//        childVC.readProgress = Float(weakSelf!.currentIndex) * 100 / Float((weakSelf!.textStorage?.count)!)
-//        // 设内容
-//        childVC.contentView.text = weakSelf!.textStorage?[weakSelf!.currentIndex - offset]
-//        // 设标题
-//        childVC.title = weakSelf!.bookItem!["Name"] as? String
-        
         // save read progress
-//        saveReadProgress()
+        
         var tempIndex = progress * (textPosStorage?.count)! / 100
         if tempIndex >= childVCs.count {
             tempIndex = childVCs.count - 1
@@ -460,20 +401,21 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         self.pageController?.setViewControllers([childVCs[tempIndex]], direction: direction, animated: true, completion: { (success) in
             if success {
                 weakSelf!.currentIndex = tempIndex
+                weakSelf!.saveReadProgress()
             }
         })
     }
-    /*
+    
     func saveReadProgress() {
         let ud = NSUserDefaults.standardUserDefaults()
         let detailKey = (self.bookItem!["Name"] as! String) + "detailKey"
         let detailBookData = [
             "textPosStorage": self.textPosStorage!,
             "currentIndex": self.currentIndex,
-            "offset": self.offset
         ]
         ud.setObject(detailBookData, forKey: detailKey)
         ud.synchronize()
+        log("saveReadProgress")
     }
- */
+ 
 }
