@@ -12,11 +12,41 @@ import UIKit
 class PageChildViewController: UIViewController {
 
     // 标题
-    let titleLable:UILabel = UILabel()
+    lazy var titleLable:UILabel = {
+        let titleLableTmp = UILabel(frame: CGRectMake(40, 20, self.view.frame.size.width-80, 20))
+        titleLableTmp.font = UIFont.systemFontOfSize(10)
+        titleLableTmp.text = self.title
+        titleLableTmp.textColor = UIColor.blackColor()
+        titleLableTmp.textAlignment = .Center
+        return titleLableTmp
+    }()
     // 进度
-    let progressLB:UILabel = UILabel()
+    var percent:Float = 0.0
+    
+    lazy var progressLB:UILabel = {
+        let progressLBTmp = UILabel(frame: CGRectMake(self.view.frame.size.width-40, 20, 40, 20))
+        progressLBTmp.font = UIFont.systemFontOfSize(10)
+        progressLBTmp.textColor = UIColor.blackColor()
+        progressLBTmp.textAlignment = .Left
+        return progressLBTmp
+    }()
     // 文本内容显示
-    let contentView:UITextView = UITextView()
+    
+    var text:String = ""
+    
+    lazy var contentView:UITextView = {
+        let contentViewTmp = UITextView(frame: CGRectMake(10, 40, self.view.frame.size.width-20, self.view.frame.size.height - 40))
+        contentViewTmp.font = UIFont.systemFontOfSize(12)
+        contentViewTmp.textColor = UIColor.blackColor()
+        contentViewTmp.editable = false
+        contentViewTmp.textContainerInset = UIEdgeInsetsZero
+        contentViewTmp.contentInset = UIEdgeInsetsZero
+        
+        contentViewTmp.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        contentViewTmp.textAlignment = .Left
+        contentViewTmp.scrollEnabled = false
+        return contentViewTmp
+    }()
     
     var pageNumber = 0;
     
@@ -47,31 +77,14 @@ class PageChildViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
         
-        titleLable.font = UIFont.systemFontOfSize(10)
-        titleLable.text = self.title
-        titleLable.textColor = UIColor.blackColor()
-        titleLable.frame = CGRectMake(40, 20, self.view.frame.size.width-80, 20)
-        titleLable.textAlignment = .Center
+        self.titleLable.text = self.title
         self.view.addSubview(titleLable)
         
+        readProgress = percent
         
-        progressLB.font = UIFont.systemFontOfSize(10)
-//        progressLB.text = String.init(format: "%.2f%%", f)
-        progressLB.textColor = UIColor.blackColor()
-        progressLB.frame = CGRectMake(self.view.frame.size.width-40, 20, 40, 20)
-        progressLB.textAlignment = .Left
         self.view.addSubview(progressLB)
         
-        contentView.font = UIFont.systemFontOfSize(fontSize)
-        contentView.textColor = UIColor.blackColor()
-        contentView.frame = CGRectMake(10, 40, self.view.frame.size.width-20, self.view.frame.size.height - 40)
-        contentView.editable = false
-        contentView.textContainerInset = UIEdgeInsetsZero
-        contentView.contentInset = UIEdgeInsetsZero
-        
-        contentView.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
-        contentView.textAlignment = .Left
-        contentView.scrollEnabled = false
+        contentView.text = text
         self.view.addSubview(contentView)
     }
     

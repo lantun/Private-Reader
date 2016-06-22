@@ -151,88 +151,7 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
         super.viewWillAppear(animated)
     }
     
-    // 读取书本内容
-    func readFile(inout bookItem:[String:AnyObject], inout textStorage:[[String:AnyObject]])-> Bool {
-        
-        let fileSize:Int = bookItem["Size"] as! Int
-        var readBuffer = [UInt8].init(count: fileSize, repeatedValue: 0)
-        let fd:UnsafeMutablePointer<FILE> = fopen(bookItem["Path"] as! String, "r")
-        fseek(fd, 0, SEEK_SET)
-        fread(&readBuffer, fileSize, 1, fd)
-        fclose(fd)
-        let enc:NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632)
-        let bookContent = String.init(bytes: readBuffer, encoding: enc)
-        readBuffer.removeAll()
-        var textPos = 0
-        let totalSize = (bookContent?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))!
-        if totalSize == 0 {
-            return false
-        }
-        
-        let frameXOffset:CGFloat = 20.0;
-        let frameYOffset:CGFloat = 60.0;
-        
-        let path:CGMutablePathRef = CGPathCreateMutable();
-        let textFrame:CGRect = CGRectInset(self.view.bounds, frameXOffset, frameYOffset);
-        CGPathAddRect(path, nil, textFrame );
-        
-        let attrString = NSAttributedString.init(string: bookContent!, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(12)])
-        let framesetter:CTFramesetterRef = CTFramesetterCreateWithAttributedString(attrString as CFAttributedString)
-        while textPos < totalSize  {
-            let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(textPos,0), path, nil)
-            let range:CFRange = CTFrameGetVisibleStringRange(frame);
-            if range.length == 0 {
-                break
-            }
-            
-            
-//            let item = ["begin":textPos,"size":range.length,"text":content.string]
-//            textStorage.append(item as! [String : AnyObject])
-            let item = ["begin":textPos,"size":range.length]
-            textStorage.append(item)
-
-            textPos = textPos + range.length
-        }
-        bookItem["content"] = attrString
-        
-//        let content = attrString.attributedSubstringFromRange(NSRange.init(location: textPos, length: range.length))
-//        totalSize = (bookContent?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))!
-//        if totalSize == 0 {
-//            return false
-//        }
-//        let tvWidth = self.view.frame.size.width-20
-//        let tvHeight = self.view.frame.size.height - 40
-//        var allHeight:CGFloat = 0.0
-//        let maxReadSize = 100000
-//        if totalSize > maxReadSize {
-//            let w = Int(totalSize/maxReadSize) + 1
-//            let progressView:UIProgressView = UIProgressView()
-//            progressView.frame = CGRectMake(10, self.view .frame.height/2 - 10, self.view .frame.width - 20, 20)
-//            self.view .addSubview(progressView)
-//            for i in 0..<w {
-//                if i == w - 1 {
-//                    allHeight = allHeight + (bookContent?[i*maxReadSize,totalSize - i*maxReadSize].getAutoheight(UIFont.systemFontOfSize(12), width: tvWidth))!
-//                }else{
-//                    allHeight = allHeight + (bookContent?[i*maxReadSize,maxReadSize].getAutoheight(UIFont.systemFontOfSize(12), width: tvWidth))!
-//                }
-//                // show progress
-//                progressView .progress = Float(i/w)
-//                log("progress :\(progressView .progress) \(i)\\\(w)")
-//            }
-//        }else{
-//            allHeight = (bookContent?.getAutoheight(UIFont.systemFontOfSize(12), width: tvWidth))!
-//        }
-        
-        
-//        if fileSize > 300 {
-//            totalIndex = Int(fileSize / 300) + 1
-//        }else{
-//            totalIndex = 1
-//        }
-        
-        return true
-    }
-    // 读取文件列表
+       // 读取文件列表
     func reloadDir() {
         bookListArray.removeAll()
 //        if !evaluatePolicyOK {
@@ -382,21 +301,15 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
     
     }
     */
-
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         log(indexPath.row)
-        guard var item:[String:AnyObject] = bookListArray[indexPath.row] else{return}
+        guard let item:[String:AnyObject] = bookListArray[indexPath.row] else{return}
         let bookPageVC:BookPageViewController = BookPageViewController()
         
-        var textStorage:[[String:AnyObject]] = [[String:AnyObject]]()
-        if readFile(&item, textStorage: &textStorage) {
-            bookPageVC.bookItem = item
-            bookPageVC.textStorage = textStorage
-            self.navigationController?.pushViewController(bookPageVC, animated: true)
-            bookListArray[indexPath.row] = item
-        }else{
-            log("readFile err \(item)")
-        }
+        
+        bookPageVC.bookItem = item
+        self.navigationController?.pushViewController(bookPageVC, animated: true)
         
         
     }
