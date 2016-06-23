@@ -13,8 +13,10 @@ import LocalAuthentication
 private let reuseIdentifier = "Cell"
 
 // 列表按钮图片数组
-let iconOnArray = ["WiFiOn","bright"]
-let iconOffArray = ["WiFi","brightness"]
+//let iconOnArray = ["WiFiOn","bright"]
+//let iconOffArray = ["WiFi","brightness"]
+let iconOnArray = ["WiFiOn"]
+let iconOffArray = ["WiFi"]
 
 class BookListCollectionViewController: UICollectionViewController,GCDWebUploaderDelegate,UITableViewDelegate,UITableViewDataSource {
 
@@ -112,8 +114,18 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
         
         self.title = "Home"
         self.collectionView!.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
-            //[UIColor colorWithRed:0.451 green:0.451 blue:0.451 alpha:1.00]
-    
+        
+        let fileResourcePath = NSBundle.mainBundle().pathForResource("instructions", ofType: "rtf")
+        let manager = NSFileManager.defaultManager()
+        let root:String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
+        let filePath = root+"/instructions.rtf"
+
+        if manager.fileExistsAtPath(filePath) {
+            try! manager.removeItemAtPath(filePath)
+        }
+        
+        try! manager.copyItemAtPath(fileResourcePath!, toPath: filePath)
+ 
         
         self.collectionView!.registerClass(BookCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
@@ -151,13 +163,16 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
         super.viewWillAppear(animated)
     }
     
-       // 读取文件列表
+    // 读取文件列表
     func reloadDir() {
         bookListArray.removeAll()
-//        if !evaluatePolicyOK {
-//            collectionView?.reloadData()
-//            return
-//        }
+        #if !DEBUG
+            if !evaluatePolicyOK {
+                collectionView?.reloadData()
+                return
+            }
+        #endif
+        
         let manager = NSFileManager.defaultManager()
         let root:String = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
         let enumerator:NSDirectoryEnumerator? =  manager.enumeratorAtPath(root)
@@ -191,7 +206,7 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
             // show msg
             msgView = UIView()
             msgView?.frame = CGRectMake(0, self.view.frame.height - 50, self.view.frame.width, 50)
-            msgView?.backgroundColor = UIColor.whiteColor()
+            msgView?.backgroundColor = UIColor.clearColor()
             self.view.addSubview(msgView!)
             
             msgLabel = UILabel()
@@ -215,22 +230,31 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
     // 打开指纹验证
     func evaluatePolicy() {
         let contect:LAContext = LAContext()
-        contect.evaluatePolicy(.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock access to locked featured") { (success, err) in
-            if success {
-                print("evaluatePolicy success!")
-                // this thread is not main thread,so add job to main...
-                dispatch_sync(dispatch_get_main_queue(), {
-                    self.evaluatePolicyOK = true
-                    self.reloadDir()
-                })
-            }else{
-                print("evaluatePolicy false!\(err.debugDescription)")
-                dispatch_sync(dispatch_get_main_queue(), {
-                    self.bookListArray.removeAll()
-                    self.collectionView?.reloadData()
-                    self.evaluatePolicyOK = false
-                })
+        if #available(iOS 9.0, *) {
+            if contect.canEvaluatePolicy(.DeviceOwnerAuthentication, error: nil) {
+                contect.evaluatePolicy(.DeviceOwnerAuthentication, localizedReason: "Unlock access to locked featured") { (success, err) in
+                    if success {
+                        print("evaluatePolicy success!")
+                        // this thread is not main thread,so add job to main...
+                        dispatch_sync(dispatch_get_main_queue(), {
+                            self.evaluatePolicyOK = true
+                            self.reloadDir()
+                        })
+                    }else{
+                        print("evaluatePolicy false!\(err.debugDescription)")
+                        dispatch_sync(dispatch_get_main_queue(), {
+                            self.bookListArray.removeAll()
+                            self.collectionView?.reloadData()
+                            self.evaluatePolicyOK = false
+                        })
+                    }
+                }
+
             }
+        } else {
+            // Fallback on earlier versions
+            self.evaluatePolicyOK = true
+            self.reloadDir()
         }
     }
 

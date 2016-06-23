@@ -17,7 +17,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
     let enc: NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632)
     
     // 分页存储内容
-    var textPosStorage: [[String: AnyObject]]? = [[String: AnyObject]]()
+    var textPosStorage: [[String: AnyObject]]? = nil
     
     // 页面控制器
     var pageController: UIPageViewController?
@@ -49,13 +49,15 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
 
         self.title = bookItem!["Name"] as? String
         
-        let detailKey = (bookItem!["Name"] as! String) + "detailKey"
-        
+        let currentIndexKey = (bookItem!["Name"] as! String) + "currentIndexKey"
+        let textPosStorageKey = (bookItem!["Name"] as! String) + "textPosStorageKey"
         let ud = NSUserDefaults.standardUserDefaults()
-        let detailBookData: [String: AnyObject]? = ud.objectForKey(detailKey) as? [String: AnyObject]
-        if (detailBookData != nil) {
-            self.textPosStorage = detailBookData?["textPosStorage"] as? [[String: AnyObject]]
-            self.currentIndex = detailBookData?["currentIndex"] as! Int
+        self.textPosStorage = ud.objectForKey(textPosStorageKey) as? [[String: AnyObject]]
+        if (self.textPosStorage != nil) {
+            let index = ud.objectForKey(currentIndexKey) as? Int
+            if (index != nil) {
+                self.currentIndex = index!
+            }
             firstLoad = false
         }else{
             firstLoad = true
@@ -76,11 +78,29 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         self.navigationController?.hidesBarsOnTap = true
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationController?.setToolbarHidden(false, animated: true)
+        
+        for vc in childVCs {
+            vc.removeFromParentViewController()
+        }
     }
-    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        aiv.backgroundColor = UIColor.clearColor()
+        aiv.frame.size = CGSize(width: 100, height: 100)
+        aiv.center = self.view.center
+        aiv.hidesWhenStopped = false
+        aiv.color = UIColor.blackColor()
+        self.view .addSubview(aiv)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.aiv.startAnimating()
+        }
+    }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
         readProgress()
+
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,6 +109,10 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // 加个菊花
+    let aiv: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+    
     /*!
      
      - author: Tun Lan
@@ -96,16 +120,32 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
      读文件进程
      */
     func readProgress() {
-        readFile(&bookItem!, textPosStorage: &textPosStorage!)
+ 
+        if firstLoad {
+            if !readFile(&bookItem!, textPosStorage: &textPosStorage) {
+                let alert = UIAlertView.init(title: "", message: "open Err", delegate: nil, cancelButtonTitle: "ok")
+                alert.show()
+                self.navigationController?.popViewControllerAnimated(true)
+                return
+            }
+            
+            let textPosStorageKey = (bookItem!["Name"] as! String) + "textPosStorageKey"
+            let ud = NSUserDefaults.standardUserDefaults()
+            ud.setObject(self.textPosStorage, forKey: textPosStorageKey)
+            ud.synchronize()
+            firstLoad = false
+
+        }
         nsprogress = NSProgress.init(totalUnitCount: Int64((textPosStorage?.count)!))
         nsprogress?.addObserver(self, forKeyPath: "completedUnitCount", options: NSKeyValueObservingOptions.New, context: nil)
         dispatch_async(queue, {
+            
             self.initPageViewController()
         })
         dispatch_async(queue, {
             self.initBar()
+            self.aiv.stopAnimating()
         })
-        
         
     }
     
@@ -201,6 +241,41 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         
     }
     
+    func getTxtEncoding(buffer:[UInt8]) -> NSStringEncoding? {
+        let arrEncoding = [
+            NSASCIIStringEncoding,
+            NSNEXTSTEPStringEncoding,
+            NSJapaneseEUCStringEncoding,
+            NSUTF8StringEncoding,
+            NSISOLatin1StringEncoding,
+            NSSymbolStringEncoding,
+            NSNonLossyASCIIStringEncoding,
+            NSShiftJISStringEncoding,
+            NSISOLatin2StringEncoding,
+            NSUnicodeStringEncoding,
+            NSWindowsCP1251StringEncoding,
+            NSWindowsCP1252StringEncoding,
+            NSWindowsCP1253StringEncoding,
+            NSWindowsCP1254StringEncoding,
+            NSWindowsCP1250StringEncoding,
+            NSISO2022JPStringEncoding,
+            NSMacOSRomanStringEncoding,
+            NSUTF16StringEncoding,
+            NSUTF16BigEndianStringEncoding,
+            NSUTF16LittleEndianStringEncoding,
+            NSUTF32StringEncoding,
+            NSUTF32BigEndianStringEncoding,
+            NSUTF32LittleEndianStringEncoding
+        ]
+        for enc in arrEncoding {
+            let tmp = String.init(bytes: buffer, encoding: enc)
+            if tmp != nil {
+                return enc
+            }
+        }
+        return nil
+    }
+    
     /*!
      
      - author: Tun Lan
@@ -212,7 +287,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
      
      - returns: 读取是否成功
      */
-    func readFile(inout bookItem: [String: AnyObject], inout textPosStorage: [[String: AnyObject]])-> Bool {
+    func readFile(inout bookItem: [String: AnyObject], inout textPosStorage: [[String: AnyObject]]?)-> Bool {
         
         let fileSize: Int = bookItem["Size"] as! Int
         var readBuffer = [UInt8].init(count: fileSize, repeatedValue: 0)
@@ -220,14 +295,24 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         fseek(fd, 0, SEEK_SET)
         fread(&readBuffer, fileSize, 1, fd)
         fclose(fd)
-        let enc: NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632)
-        let bookContent = String.init(bytes: readBuffer, encoding: enc)
+        let enc = getTxtEncoding(readBuffer)
+        let converenc: NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632) // kCFStringEncodingGB_18030_2000
+        var bookContent:String? = String.init(bytes: readBuffer, encoding: converenc)
+        if (bookContent == nil) {
+            bookContent = String.init(bytes: readBuffer, encoding: enc!)
+        }
+        
         readBuffer.removeAll()
         var textPos = 0
+        if bookContent == nil {
+            return false
+        }
         let totalSize = (bookContent?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))!
         if totalSize == 0 {
             return false
         }
+        
+        textPosStorage = [[String: AnyObject]]()
         let frameXOffset: CGFloat = 20.0;
         let frameYOffset: CGFloat = 60.0;
         
@@ -246,7 +331,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             
             let content = attrString.attributedSubstringFromRange(NSRange.init(location: textPos, length: range.length))
             let item = ["begin": textPos,"size": range.length,"text": content.string]
-            textPosStorage.append(item as! [String : AnyObject])
+            textPosStorage?.append(item as! [String : AnyObject])
 
             textPos = textPos + range.length
         }
@@ -408,12 +493,8 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
     
     func saveReadProgress() {
         let ud = NSUserDefaults.standardUserDefaults()
-        let detailKey = (self.bookItem!["Name"] as! String) + "detailKey"
-        let detailBookData = [
-            "textPosStorage": self.textPosStorage!,
-            "currentIndex": self.currentIndex,
-        ]
-        ud.setObject(detailBookData, forKey: detailKey)
+        let currentIndexKey = (self.bookItem!["Name"] as! String) + "currentIndexKey"
+        ud.setObject(self.currentIndex, forKey: currentIndexKey)
         ud.synchronize()
         log("saveReadProgress")
     }

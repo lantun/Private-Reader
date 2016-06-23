@@ -17,6 +17,7 @@
 		3A5406C51D0EE6A800654551 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5406C41D0EE6A800654551 /* libz.tbd */; };
 		3A54072C1D0EEA9500654551 /* GCDWebUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A54072A1D0EEA9500654551 /* GCDWebUploader.m */; };
 		3A549F291D0FE44A00D9A0F5 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A549F281D0FE44A00D9A0F5 /* UIImage.swift */; };
+		3A9FBA721D1C14E500E11F47 /* instructions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3A9FBA711D1C14E500E11F47 /* instructions.rtf */; };
 		3AA701651D0F966E0030FA59 /* BookPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA701641D0F966E0030FA59 /* BookPageViewController.swift */; };
 		3AA701671D0FA9890030FA59 /* Def.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA701661D0FA9890030FA59 /* Def.swift */; };
 		3AE64DCC1D0F06870017F714 /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE64DAF1D0F06870017F714 /* GCDWebServer.m */; };
@@ -48,6 +49,7 @@
 		3A5407291D0EEA9500654551 /* GCDWebUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebUploader.h; sourceTree = "<group>"; };
 		3A54072A1D0EEA9500654551 /* GCDWebUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebUploader.m; sourceTree = "<group>"; };
 		3A549F281D0FE44A00D9A0F5 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		3A9FBA711D1C14E500E11F47 /* instructions.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = instructions.rtf; path = "Private Reader/instructions.rtf"; sourceTree = "<group>"; };
 		3AA701641D0F966E0030FA59 /* BookPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookPageViewController.swift; sourceTree = "<group>"; };
 		3AA701661D0FA9890030FA59 /* Def.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Def.swift; path = "Private Reader/Def.swift"; sourceTree = SOURCE_ROOT; };
 		3ABE859C1D1155BD00ABE438 /* GCDWebUploader.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GCDWebUploader.bundle; path = GCDWebServers.framework/GCDWebUploader.bundle; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		3A4CFC861D0D64FD00C5D4FB = {
 			isa = PBXGroup;
 			children = (
+				3A9FBA711D1C14E500E11F47 /* instructions.rtf */,
 				3A02704F1D116A4F0048F6EE /* GCDWebServers */,
 				3A5406C41D0EE6A800654551 /* libz.tbd */,
 				3A4CFC911D0D64FD00C5D4FB /* Private Reader */,
@@ -291,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A9FBA721D1C14E500E11F47 /* instructions.rtf in Resources */,
 				3A0270521D116A820048F6EE /* GCDWebUploader.bundle in Resources */,
 				3A4CFC9A1D0D64FE00C5D4FB /* Assets.xcassets in Resources */,
 			);
@@ -421,33 +425,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Private Reader/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader/GCDWebServers.framework,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "LT.Private-Reader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/tunlan/Desktop/Private Reader/Private Reader/Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -460,33 +445,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_OPTIMIZATION_PROFILE_FILE = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Private Reader/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Private",
-					Reader/GCDWebUploader/GCDWebServers.framework,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "LT.Private-Reader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/tunlan/Desktop/Private Reader/Private Reader/Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
