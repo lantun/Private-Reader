@@ -8,10 +8,19 @@
 
 import UIKit
 
+let umKey = "576cead567e58eba500021c0"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    func umengTrack() {
+        UMAnalyticsConfig.sharedInstance().appKey = umKey
+        UMAnalyticsConfig.sharedInstance().channelId = "App Store"
+        UMAnalyticsConfig.sharedInstance().eSType = .E_UM_NORMAL // 仅适用于游戏场景，应用统计不用设置
+        MobClick.startWithConfigure(UMAnalyticsConfig.sharedInstance())
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -29,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let BookListVC = UINavigationController(rootViewController: BookListCollectionViewController(collectionViewLayout: flowLayout))
         BookListVC.navigationBar.tintColor = UIColor.blackColor()
         BookListVC.toolbar.tintColor = UIColor.blackColor()
-        BookListVC.navigationBar.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        BookListVC.navigationBar.backgroundColor = RGB(r: 239, g: 239, b: 224)
         window?.rootViewController = BookListVC
         window?.makeKeyAndVisible()
         return true

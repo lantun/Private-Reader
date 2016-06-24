@@ -9,8 +9,14 @@
 #ifndef Bridging_Header_h
 #define Bridging_Header_h
 
-#import "GCDWebServer.h"
-#import "GCDWebUploader.h"
 
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+    #import "MobClick.h"
+    #import "GCDWebServer.h"
+    #import "GCDWebUploader.h"
+#endif
 
 #endif /* Bridging_Header_h */

@@ -220,7 +220,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         weak var weakSelf:BookPageViewController! = self
         dispatch_async(dispatch_get_main_queue()) { 
             let rectToolBar = (weakSelf.navigationController?.toolbar.frame)!
-            weakSelf.slider.frame = CGRectMake(0, 0, 290, rectToolBar.height)
+            weakSelf.slider.frame = CGRectMake(0, 0, rectToolBar.width-35, rectToolBar.height)
             weakSelf.slider.maximumValue = 100
             weakSelf.slider.minimumValue = 0
             
@@ -241,6 +241,17 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         
     }
     
+
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-24 09:06:24
+     返回数据编码
+     
+     - parameter buffer: 数据内存地址
+     
+     - returns: 编码
+     */
     func getTxtEncoding(buffer:[UInt8]) -> NSStringEncoding? {
         let arrEncoding = [
             NSASCIIStringEncoding,
@@ -289,14 +300,17 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
      */
     func readFile(inout bookItem: [String: AnyObject], inout textPosStorage: [[String: AnyObject]]?)-> Bool {
         
+        // 读文件内容
         let fileSize: Int = bookItem["Size"] as! Int
         var readBuffer = [UInt8].init(count: fileSize, repeatedValue: 0)
         let fd: UnsafeMutablePointer<FILE> = fopen(bookItem["Path"] as! String, "r")
         fseek(fd, 0, SEEK_SET)
         fread(&readBuffer, fileSize, 1, fd)
         fclose(fd)
+        
+        // 解文件
         let enc = getTxtEncoding(readBuffer)
-        let converenc: NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632) // kCFStringEncodingGB_18030_2000
+        let converenc: NSStringEncoding = CFStringConvertEncodingToNSStringEncoding(0x0632) // kCFStringEncodingGB_18030_2000 传了一些网上传的txt都可以看
         var bookContent:String? = String.init(bytes: readBuffer, encoding: converenc)
         if (bookContent == nil) {
             bookContent = String.init(bytes: readBuffer, encoding: enc!)
@@ -312,6 +326,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
             return false
         }
         
+        // 下面开始分页
         textPosStorage = [[String: AnyObject]]()
         let frameXOffset: CGFloat = 20.0;
         let frameYOffset: CGFloat = 60.0;
@@ -478,10 +493,14 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
         if tempIndex >= childVCs.count {
             tempIndex = childVCs.count - 1
         }
+        if tempIndex == currentIndex {
+            return
+        }
         var direction: UIPageViewControllerNavigationDirection = UIPageViewControllerNavigationDirection.Forward
         if tempIndex < currentIndex  {
             direction = .Reverse
         }
+        
         weak var weakSelf = self
         self.pageController?.setViewControllers([childVCs[tempIndex]], direction: direction, animated: true, completion: { (success) in
             if success {

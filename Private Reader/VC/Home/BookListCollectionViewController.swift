@@ -227,7 +227,12 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
         msgView?.removeFromSuperview()
     }
     
-    // 打开指纹验证
+    /*!
+     
+     - author: Tun Lan
+     - date: 16-06-24 15:06:18
+     打开指纹验证
+     */
     func evaluatePolicy() {
         let contect:LAContext = LAContext()
         if #available(iOS 9.0, *) {

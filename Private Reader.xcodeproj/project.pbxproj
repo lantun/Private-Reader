@@ -10,6 +10,10 @@
 		3A0270521D116A820048F6EE /* GCDWebUploader.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3ABE859C1D1155BD00ABE438 /* GCDWebUploader.bundle */; };
 		3A0270551D116F440048F6EE /* BookListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0270541D116F440048F6EE /* BookListCollectionViewController.swift */; };
 		3A0270571D116F580048F6EE /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0270561D116F580048F6EE /* BookCollectionViewCell.swift */; };
+		3A190F0E1D1D1DB600FD3554 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A190F0D1D1D1DB600FD3554 /* UIView.swift */; };
+		3A190F131D1D245700FD3554 /* UMMobClick in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A190F121D1D245700FD3554 /* UMMobClick */; };
+		3A190F161D1D2DD000FD3554 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A190F151D1D2DD000FD3554 /* libsqlite3.0.tbd */; };
+		3A190F181D1D2DEC00FD3554 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A190F171D1D2DEC00FD3554 /* CoreTelephony.framework */; };
 		3A4B9E381D104FB600E7D571 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B9E371D104FB600E7D571 /* String.swift */; };
 		3A4B9E3A1D1061FA00E7D571 /* PageChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B9E391D1061FA00E7D571 /* PageChildViewController.swift */; };
 		3A4CFC931D0D64FD00C5D4FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4CFC921D0D64FD00C5D4FB /* AppDelegate.swift */; };
@@ -39,6 +43,11 @@
 		3A02704F1D116A4F0048F6EE /* GCDWebServers */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = GCDWebServers; path = "Private Reader/GCDWebUploader/GCDWebServers.framework/GCDWebServers"; sourceTree = "<group>"; };
 		3A0270541D116F440048F6EE /* BookListCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListCollectionViewController.swift; sourceTree = "<group>"; };
 		3A0270561D116F580048F6EE /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A190F0D1D1D1DB600FD3554 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		3A190F121D1D245700FD3554 /* UMMobClick */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = UMMobClick; path = "Private Reader/support framework/UMMobClick.framework/Versions/A/UMMobClick"; sourceTree = "<group>"; };
+		3A190F141D1D28B600FD3554 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = UMMobClick.framework/Versions/A/Headers/MobClick.h; sourceTree = "<group>"; };
+		3A190F151D1D2DD000FD3554 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		3A190F171D1D2DEC00FD3554 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3A4B9E371D104FB600E7D571 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3A4B9E391D1061FA00E7D571 /* PageChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageChildViewController.swift; sourceTree = "<group>"; };
 		3A4CFC8F1D0D64FD00C5D4FB /* Private Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Private Reader.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A190F181D1D2DEC00FD3554 /* CoreTelephony.framework in Frameworks */,
+				3A190F161D1D2DD000FD3554 /* libsqlite3.0.tbd in Frameworks */,
+				3A190F131D1D245700FD3554 /* UMMobClick in Frameworks */,
 				3A5406C51D0EE6A800654551 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,9 +118,20 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		3A190F0F1D1D230000FD3554 /* support framework */ = {
+			isa = PBXGroup;
+			children = (
+				3A190F141D1D28B600FD3554 /* MobClick.h */,
+			);
+			path = "support framework";
+			sourceTree = "<group>";
+		};
 		3A4CFC861D0D64FD00C5D4FB = {
 			isa = PBXGroup;
 			children = (
+				3A190F171D1D2DEC00FD3554 /* CoreTelephony.framework */,
+				3A190F151D1D2DD000FD3554 /* libsqlite3.0.tbd */,
+				3A190F121D1D245700FD3554 /* UMMobClick */,
 				3A9FBA711D1C14E500E11F47 /* instructions.rtf */,
 				3A02704F1D116A4F0048F6EE /* GCDWebServers */,
 				3A5406C41D0EE6A800654551 /* libz.tbd */,
@@ -128,6 +151,7 @@
 		3A4CFC911D0D64FD00C5D4FB /* Private Reader */ = {
 			isa = PBXGroup;
 			children = (
+				3A190F0F1D1D230000FD3554 /* support framework */,
 				3A549F251D0FE3AC00D9A0F5 /* UIToolKit */,
 				3AE64DD91D0F06C80017F714 /* Bridging-Header.h */,
 				3AE64DAC1D0F06870017F714 /* GCDWebServer */,
@@ -167,6 +191,7 @@
 			children = (
 				3A549F281D0FE44A00D9A0F5 /* UIImage.swift */,
 				3A4B9E371D104FB600E7D571 /* String.swift */,
+				3A190F0D1D1D1DB600FD3554 /* UIView.swift */,
 			);
 			path = UIToolKit;
 			sourceTree = "<group>";
@@ -314,6 +339,7 @@
 				3AE64DD31D0F06870017F714 /* GCDWebServerMultiPartFormRequest.m in Sources */,
 				3AE64DD51D0F06870017F714 /* GCDWebServerDataResponse.m in Sources */,
 				3AE64DD61D0F06870017F714 /* GCDWebServerErrorResponse.m in Sources */,
+				3A190F0E1D1D1DB600FD3554 /* UIView.swift in Sources */,
 				3AE64DCC1D0F06870017F714 /* GCDWebServer.m in Sources */,
 				3AE64DD71D0F06870017F714 /* GCDWebServerFileResponse.m in Sources */,
 				3A4CFC931D0D64FD00C5D4FB /* AppDelegate.swift in Sources */,
