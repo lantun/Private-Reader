@@ -16,7 +16,7 @@ class PageChildViewController: UIViewController {
         let titleLableTmp = UILabel(frame: CGRectMake(40, 20, self.view.frame.size.width-80, 20))
         titleLableTmp.font = UIFont.systemFontOfSize(10)
         titleLableTmp.text = self.title
-        titleLableTmp.textColor = UIColor.blackColor()
+        titleLableTmp.textColor = textColor
         titleLableTmp.textAlignment = .Center
         return titleLableTmp
     }()
@@ -26,7 +26,7 @@ class PageChildViewController: UIViewController {
     lazy var progressLB:UILabel = {
         let progressLBTmp = UILabel(frame: CGRectMake(self.view.frame.size.width-40, 20, 40, 20))
         progressLBTmp.font = UIFont.systemFontOfSize(10)
-        progressLBTmp.textColor = UIColor.blackColor()
+        progressLBTmp.textColor = textColor
         progressLBTmp.textAlignment = .Left
         return progressLBTmp
     }()
@@ -37,12 +37,12 @@ class PageChildViewController: UIViewController {
     lazy var contentView:UITextView = {
         let contentViewTmp = UITextView(frame: CGRectMake(10, 40, self.view.frame.size.width-20, self.view.frame.size.height - 40))
         contentViewTmp.font = UIFont.systemFontOfSize(12)
-        contentViewTmp.textColor = UIColor.blackColor()
+        contentViewTmp.textColor = textColor
         contentViewTmp.editable = false
         contentViewTmp.textContainerInset = UIEdgeInsetsZero
         contentViewTmp.contentInset = UIEdgeInsetsZero
         
-        contentViewTmp.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        contentViewTmp.backgroundColor = viewBackgroundColor
         contentViewTmp.textAlignment = .Left
         contentViewTmp.scrollEnabled = false
         return contentViewTmp
@@ -75,7 +75,7 @@ class PageChildViewController: UIViewController {
     // 初始化ui
     func initUI() {
         
-        self.view.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        self.view.backgroundColor = viewBackgroundColor
         
         self.titleLable.text = self.title
         self.view.addSubview(titleLable)

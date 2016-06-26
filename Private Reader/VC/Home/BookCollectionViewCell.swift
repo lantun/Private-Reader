@@ -14,14 +14,16 @@ class BookCollectionViewCell: UICollectionViewCell {
     let bookName:UILabel
     override init(frame: CGRect) {
         bookName = UILabel.init(frame: CGRectMake(0, 12, frame.width, frame.height-24))
-        bookName.textColor = UIColor.init(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.00)
+        bookName.textColor = bookItemTextColor
         bookName.font = UIFont.systemFontOfSize(10)
         bookName.textAlignment = .Center
         bookName.numberOfLines = 0
         
         super.init(frame: frame)
         self.addSubview(bookName)
-        self.backgroundColor = UIColor.init(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.00)
+        self.contentView.backgroundColor = bookItembackgroundColor
+        
+        self.tag = 666
     }
     
     required init?(coder aDecoder: NSCoder) {

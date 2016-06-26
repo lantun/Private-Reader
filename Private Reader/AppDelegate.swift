@@ -38,9 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let BookListVC = UINavigationController(rootViewController: BookListCollectionViewController(collectionViewLayout: flowLayout))
         BookListVC.navigationBar.tintColor = UIColor.blackColor()
         BookListVC.toolbar.tintColor = UIColor.blackColor()
-        BookListVC.navigationBar.backgroundColor = RGB(r: 239, g: 239, b: 224)
+        BookListVC.navigationBar.backgroundColor = viewBackgroundColor
         window?.rootViewController = BookListVC
         window?.makeKeyAndVisible()
+        
+        
+        
         return true
     }
 

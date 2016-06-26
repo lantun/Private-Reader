@@ -13,10 +13,10 @@ import LocalAuthentication
 private let reuseIdentifier = "Cell"
 
 // 列表按钮图片数组
-//let iconOnArray = ["WiFiOn","bright"]
-//let iconOffArray = ["WiFi","brightness"]
-let iconOnArray = ["WiFiOn"]
-let iconOffArray = ["WiFi"]
+let iconOnArray = ["WiFiOn","bright"]
+let iconOffArray = ["WiFi","brightness"]
+//let iconOnArray = ["WiFiOn"]
+//let iconOffArray = ["WiFi"]
 
 class BookListCollectionViewController: UICollectionViewController,GCDWebUploaderDelegate,UITableViewDelegate,UITableViewDataSource {
 
@@ -82,6 +82,10 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
             break
         case 1:
             // bright on
+            self.collectionView!.switchModel(night: false)
+            let ud = NSUserDefaults.standardUserDefaults()
+            ud.setBool(false, forKey: "nightModel")
+            ud.synchronize()
             break
         default:
             log("switch err")
@@ -96,6 +100,10 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
             break
         case 1:
             // bright off
+            self.collectionView!.switchModel(night: true)
+            let ud = NSUserDefaults.standardUserDefaults()
+            ud.setBool(true, forKey: "nightModel")
+            ud.synchronize()
             break
         default:
             log("switch err")
@@ -112,8 +120,10 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
 
         // Register cell classes
         
+        
         self.title = "Home"
-        self.collectionView!.backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        self.collectionView!.backgroundColor = viewBackgroundColor
+        self.collectionView?.tag = 666
         
         let fileResourcePath = NSBundle.mainBundle().pathForResource("instructions", ofType: "rtf")
         let manager = NSFileManager.defaultManager()
@@ -140,6 +150,12 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
         
         
         initRightTableViewMenu()
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        let nightFlag = ud.objectForKey("nightModel")
+        if nightFlag != nil {
+            self.collectionView?.switchModel(night: nightFlag as! Bool)
+        }
     }
     
     // 页面初始化右边列表按钮
@@ -211,7 +227,7 @@ class BookListCollectionViewController: UICollectionViewController,GCDWebUploade
             
             msgLabel = UILabel()
             msgLabel?.frame = CGRectMake(10, 4, self.view.frame.width-20, 42)
-            msgLabel?.textColor = UIColor.blackColor()
+            msgLabel?.textColor = textColor
             msgLabel?.textAlignment = .Center
             msgLabel?.numberOfLines = 0
             msgLabel?.lineBreakMode = .ByWordWrapping

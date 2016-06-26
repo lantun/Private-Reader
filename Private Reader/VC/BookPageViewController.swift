@@ -41,7 +41,7 @@ class BookPageViewController: UIViewController,UIPageViewControllerDataSource,UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view .backgroundColor = UIColor.init(red: 239/255, green: 239/255, blue: 224/255, alpha: 1.00)
+        self.view .backgroundColor = viewBackgroundColor
         
         
         fd = fopen(bookItem!["Path"] as! String, "r")
